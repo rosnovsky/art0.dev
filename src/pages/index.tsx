@@ -3,7 +3,7 @@ import Head from "next/head";
 import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {
-  const hello = trpc.useQuery(["example.getAll"]);
+  const urls = trpc.useQuery(["urls.getAll"]);
 
   return (
     <>
@@ -51,7 +51,7 @@ const Home: NextPage = () => {
           />
         </div>
         <div className="pt-6 text-2xl text-blue-500 flex justify-center items-center w-full">
-          {hello.data ? <p>{hello.data[0].slug}</p> : <p>Loading..</p>}
+          {urls.data ? <p>{urls.data[0].longUrl}</p> : <p>Loading..</p>}
         </div>
       </main>
     </>

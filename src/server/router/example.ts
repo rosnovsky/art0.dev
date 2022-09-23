@@ -1,17 +1,14 @@
 import { createRouter } from "./context";
 import { z } from "zod";
 
-export const exampleRouter = createRouter()
-  .query("hello", {
+export const shortenerRouter = createRouter()
+  .query("getUrl", {
     input: z
       .object({
-        text: z.string().nullish(),
-      })
-      .nullish(),
-    resolve({ input }) {
-      return {
-        greeting: `Hello ${input?.text ?? "world"}`,
-      };
+        slug: z.string()
+      }),
+    async resolve({ input, ctx }) {
+      return await ctx.prisma.shorts.findOne([{ slug: input.slug }]);
     },
   })
   .query("getAll", {

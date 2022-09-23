@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../server/db/client";
 
-const examples = async (req: NextApiRequest, res: NextApiResponse) => {
+const shorts = async (req: NextApiRequest, res: NextApiResponse) => {
   prisma.$connect()
 
   const allUrls = await prisma.shorts.findMany()
@@ -11,4 +11,4 @@ const examples = async (req: NextApiRequest, res: NextApiResponse) => {
   res.status(200).json(allUrls);
 };
 
-export default examples;
+export default shorts;
