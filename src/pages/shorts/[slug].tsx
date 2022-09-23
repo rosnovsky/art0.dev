@@ -1,14 +1,14 @@
 import Head from "next/head";
-import { trpc } from "../utils/trpc";
+import { trpc } from "../../utils/trpc";
 import { createSSGHelpers } from '@trpc/react/ssg';
-import { GetServerSidePropsContext } from 'next';
-import { createContext } from '../server/router/context';
-import { appRouter } from '../server/router';
+import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
+import { createContext } from '../../server/router/context';
+import { appRouter } from '../../server/router';
 import superjson from 'superjson';
 
-const Home = () => {
-  const postQuery = trpc.useQuery(['urls.getAll']);
-  const { data } = postQuery;
+const Home = (props: InferGetServerSidePropsType<typeof getStaticProps>) => {
+  const shortQuery = trpc.useQuery(['urls.getUrl', { slug: props.slug }]);
+  const { data } = shortQuery;
   return (
     <>
       <Head>
@@ -23,9 +23,7 @@ const Home = () => {
         </h1>
         <p className="text-2xl text-gray-700">A URL Shortener</p>
         <div className="pt-6 text-2xl text-blue-500 flex justify-center items-center w-full">
-          <ul>
-            {data?.map((url) => <li className='list-disc text-red-600' key={url.id}>{url.slug}</li>)}
-          </ul>
+          {data?.longUrl}
         </div>
       </main>
     </>
@@ -34,9 +32,26 @@ const Home = () => {
 
 export default Home;
 
+export async function getStaticPaths() {
+  const ssg = createSSGHelpers({
+    router: appRouter,
+    // @ts-expect-error not sure why this is an error
+    ctx: await createContext(),
+    transformer: superjson,
+  });
+  const urls = await ssg.fetchQuery('urls.getAll');
+  const paths = urls.map((url) => ({
+    params: { slug: url.slug },
+  }));
+  return {
+    paths,
+    fallback: 'blocking',
+  };
+}
 
-export async function getServerSideProps(
-  context: GetServerSidePropsContext<any>,
+
+export async function getStaticProps(
+  context: GetStaticPropsContext<{ slug: string }>,
 ) {
   const ssg = createSSGHelpers({
     router: appRouter,
@@ -45,15 +60,12 @@ export async function getServerSideProps(
     transformer: superjson,
   });
 
-  /*
-   * Prefetching the `post.byId` query here.
-   * `prefetchQuery` does not return the result - if you need that, use `fetchQuery` instead.
-   */
-  await ssg.prefetchQuery('urls.getAll');
-  // Make sure to return { props: { trpcState: ssg.dehydrate() } }
+  const slug = context.params?.slug || "";
+  await ssg.fetchQuery('urls.getUrl', { slug });
   return {
     props: {
       trpcState: ssg.dehydrate(),
+      slug,
     },
   };
 }

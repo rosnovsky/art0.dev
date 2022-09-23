@@ -20,4 +20,13 @@ export default defineNextConfig({
     locales: ["en"],
     defaultLocale: "en",
   },
+  images: {
+    domains: ["images.unsplash.com", "tailwindui.com"],
+    dangerouslyAllowSVG: true,
+  },
+
+  experimental: {
+    optimizeFonts: true,
+    newNextLinkBehavior: true,
+  },
 });
