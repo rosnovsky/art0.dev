@@ -15,4 +15,7 @@ model Shorts {
   slug     String    @unique
   longUrl    String
   shortUrl     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  clicks   Int
 }

@@ -6,7 +6,7 @@ export const shortenerRouter = createRouter()
     input: z.object({
       slug: z
         .string()
-        // .regex(/[a-zA-Z0-9]+/m)
+        .regex(/[a-zA-Z0-9]+/m)
         .trim(),
     }),
     async resolve({ input, ctx }) {

@@ -2,7 +2,7 @@
 import { createRouter } from "./context";
 import superjson from "superjson";
 
-import { shortenerRouter } from "./example";
+import { shortenerRouter } from "./shrtener";
 
 export const appRouter = createRouter()
   .transformer(superjson)

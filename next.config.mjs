@@ -26,7 +26,8 @@ export default defineNextConfig({
   },
 
   experimental: {
-    optimizeFonts: true,
     newNextLinkBehavior: true,
+    scrollRestoration: true,
   },
+  swcMinify: true,
 });
