@@ -164,7 +164,7 @@ export default function Dashboard() {
               width={50}
               height={50}
               className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=purple&shade=500"
+              src="https://tailwindui.com/img/logos/mark.svg?color=blue&shade=500"
               alt="Your Company"
             />
           </div>
@@ -399,10 +399,12 @@ export default function Dashboard() {
                   <div>
                     <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
                       <span className="sr-only">Open user menu</span>
-                      <img
+                      <Image
                         className="h-8 w-8 rounded-full"
                         src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                         alt=""
+                        width={50}
+                        height={50}
                       />
                     </Menu.Button>
                   </div>
@@ -515,7 +517,7 @@ export default function Dashboard() {
               <div className="mt-4 flex sm:mt-0 sm:ml-4">
                 <button
                   type="button"
-                  className="order-0 inline-flex items-center rounded-md border border-transparent bg-purple-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 sm:order-1 sm:ml-3"
+                  className="order-0 inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:order-1 sm:ml-3"
                 >
                   Create
                 </button>

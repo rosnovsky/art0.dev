@@ -5,7 +5,7 @@ function classNames(...classes: string[]) {
 }
 
 type StatsProps = {
-  stats: { name: string, stat: number, previousStat: number, change: number, changeType: 'increase' | 'decrease' }[],
+  stats: { name: string, stat: string, previousStat: string, change: string, changeType: string }[],
 }
 
 export const Stats = ({ stats }: StatsProps) => {
