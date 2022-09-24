@@ -1,6 +1,9 @@
 import type { NextPage } from 'next'
+import { trpc } from '../../utils/trpc';
 
 export const newShort: NextPage = () => {
+  const addNewShort = trpc.useQuery(['urls.addUrl', { longUrl: 'https://google.com' }]);
+  console.log(addNewShort);
   return (
     <form className="space-y-8 divide-y divide-gray-200">
       <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
