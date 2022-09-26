@@ -7,7 +7,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export const Sidebar = ({ navigation, children }) => {
+export const Sidebar = ({ navigation, children }: any) => {
   const [sidebarOpen, setSidebarOpen] = useState(true)
   return (<>
     <Dialog as="div" className="relative z-40 md:hidden" onClose={setSidebarOpen}>
@@ -65,7 +65,7 @@ export const Sidebar = ({ navigation, children }) => {
             </div>
             <div className="mt-5 h-0 flex-1 overflow-y-auto">
               <nav className="space-y-1 px-2">
-                {navigation.map((item) => (
+                {navigation.map((item: any) => (
                   <a
                     key={item.name}
                     href={item.href}
@@ -103,7 +103,7 @@ export const Sidebar = ({ navigation, children }) => {
         </div>
         <div className="mt-5 flex flex-1 flex-col">
           <nav className="flex-1 space-y-1 px-2 pb-4">
-            {navigation.map((item) => (
+            {navigation.map((item: any) => (
               <a
                 key={item.name}
                 href={item.href}
