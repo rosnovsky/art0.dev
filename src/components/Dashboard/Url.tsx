@@ -10,7 +10,9 @@ type UrlProps = {
     createdAt?: string
     updatedAt?: string
     active?: boolean,
-    clicks?: number
+    clicks?: number,
+    title?: string,
+    favicon?: string,
   }[]
 }
 
@@ -51,10 +53,10 @@ export default function Url({ url }: UrlProps) {
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
                         <div className="flex items-center">
                           <div className="h-10 w-10 flex-shrink-0">
-                            <Image className="h-10 w-10 rounded-full" src="" width={50} height={50} alt="" />
+                            <Image className="h-10 w-10" src={url.favicon || ""} width={50} height={50} alt="" />
                           </div>
                           <div className="ml-4">
-                            <div className="font-medium text-gray-900">Rosnovsky Park</div>
+                            <div className="font-medium text-gray-900">{url.title || "Unknown"}</div>
                             <div className="text-gray-500 truncate">{url.longUrl.slice(0, 45) + "..."}</div>
                           </div>
                         </div>

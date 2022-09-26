@@ -10,7 +10,7 @@ import { createContext } from 'react';
 import { ChartBarIcon, LinkIcon, HomeIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
-  { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
+  { name: 'Dashboard', href: '/dashboard', icon: HomeIcon, current: true },
   { name: 'Shorts', href: '#', icon: LinkIcon, current: false },
   { name: 'Stats', href: '#', icon: ChartBarIcon, current: false },
 ]

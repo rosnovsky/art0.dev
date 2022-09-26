@@ -21,7 +21,17 @@ export default defineNextConfig({
     defaultLocale: "en",
   },
   images: {
-    domains: ["images.unsplash.com", "tailwindui.com"],
+    // domains: ["images.unsplash.com", "tailwindui.com", "cdn.microlink.io", "*"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**.*.*",
+      },
+      {
+        protocol: "https",
+        hostname: "*.*",
+      },
+    ],
     dangerouslyAllowSVG: true,
   },
 

@@ -1,4 +1,5 @@
 import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/20/solid'
+import { trpc } from '../../utils/trpc'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -8,7 +9,35 @@ type StatsProps = {
   stats: { name: string, stat: string, previousStat: string, change: string, changeType: string }[],
 }
 
-export const Stats = ({ stats }: StatsProps) => {
+export const Stats = () => {
+  const totalUrls = trpc.useQuery(['urls.getAll']).data?.length;
+  const totalClicks = trpc.useQuery(['urls.getAll']).data?.reduce((acc, curr) => acc + curr.clicks, 0);
+  const averageClicks = (totalClicks || 0) / (totalUrls || 1);
+
+  const stats = [
+    {
+      name: 'Total URLs',
+      stat: totalUrls,
+      previousStat: 0,
+      change: '0',
+      changeType: 'increase',
+    },
+    {
+      name: 'Total Clicks',
+      stat: totalClicks,
+      previousStat: 0,
+      change: '0',
+      changeType: 'increase',
+    },
+    {
+      name: 'Average Clicks',
+      stat: averageClicks,
+      previousStat: 0,
+      change: '0',
+      changeType: 'increase',
+    },
+  ]
+
   return (
     <div className="mt-6 px-4 sm:px-6 lg:px-8">
       <div>
@@ -41,7 +70,7 @@ export const Stats = ({ stats }: StatsProps) => {
                   )}
 
                   <span className="sr-only"> {item.changeType === 'increase' ? 'Increased' : 'Decreased'} by </span>
-                  {item.change}
+                  {(item.stat - item.previousStat) * 100}%
                 </div>
               </dd>
             </div>

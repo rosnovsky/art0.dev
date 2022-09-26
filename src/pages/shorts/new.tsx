@@ -5,25 +5,41 @@ import { trpc } from '../../utils/trpc';
 
 export const NewShort: NextPage = () => {
   const [longUrl, setLongUrl] = useState<string>("");
-  const result = trpc.useQuery(['urls.addUrl', { longUrl }]);
+  const [inProgress, setInProgress] = useState<boolean>(false);
+  const addUrlMutation = trpc.useMutation('urls.addUrl');
+  const deleteUrlMutation = trpc.useMutation('urls.deleteUrl');
 
-  const handleNewShort = async (e: any) => {
-    e.preventDefault();
-    result;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLongUrl(e.target.value);
+  };
+
+  const handleNewShort = async () => {
+    const resolveHostName = longUrl.replace(/\/\/|.+\/\//, '')
+    setLongUrl(resolveHostName)
+    setInProgress(true);
+    addUrlMutation.mutate({ longUrl: `https://${resolveHostName}` })
+    setInProgress(false);
+    setLongUrl("")
+    window.location.href = '/dashboard';
+  }
+
+  const handleDeleteShort = async () => {
+    setInProgress(true);
+    deleteUrlMutation.mutate({ longUrl })
+    setInProgress(false);
   }
 
   return (
     <div className="min-h-full">
       <Layout title="New Link">
         <main className="flex-1">
-
           <div className="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
             <div className="min-w-0 flex-1">
               <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate">Add new link</h1>
             </div>
           </div>
           <div className="max-w-3xl mx-auto mt-6 px-4 sm:px-6 lg:px-8">
-            <form className="space-y-8 divide-y divide-gray-200" onSubmit={(e) => handleNewShort(e)}>
+            <form className="space-y-8 divide-y divide-gray-200">
               <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
                 <div className="space-y-6 sm:space-y-5">
                   <div>
@@ -44,11 +60,12 @@ export const NewShort: NextPage = () => {
                             https://
                           </span>
                           <input
-                            onChange={(e) => setLongUrl(e.target.value)}
+                            onChange={(e) => handleChange(e)}
                             type="text"
                             name="slug"
                             id="slug"
                             required
+                            value={longUrl}
                             className="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                           />
                         </div>
@@ -74,8 +91,15 @@ export const NewShort: NextPage = () => {
                 </div>
               </div>
 
-              <div className="pt-5">
-                <div className="flex justify-end">
+              <div className="pt-5 flex justify-between">
+                <div className="justify-start"><button
+                  type="button"
+                  onClick={handleDeleteShort}
+                  className="rounded-md border border-red-300 bg-red-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-50 hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                >
+                  Delete
+                </button></div>
+                <div className="justify-end">
                   <button
                     type="button"
                     className="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -83,6 +107,8 @@ export const NewShort: NextPage = () => {
                     Cancel
                   </button>
                   <button
+                    disabled={inProgress}
+                    onClick={handleNewShort}
                     type="submit"
                     className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
