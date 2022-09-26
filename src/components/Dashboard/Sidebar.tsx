@@ -2,14 +2,15 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import { Fragment, useState } from 'react'
 import Image from 'next/future/image'
+import { Context } from '../../pages/_app'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export const Sidebar = ({ navigation, children }: any) => {
+export const Sidebar = ({ children }: any) => {
   const [sidebarOpen, setSidebarOpen] = useState(true)
-  return (<>
+  return (<Context.Consumer>{({ navigation }) => (<>
     <Dialog as="div" className="relative z-40 md:hidden" onClose={setSidebarOpen}>
       <Transition.Child
         as={Fragment}
@@ -87,7 +88,6 @@ export const Sidebar = ({ navigation, children }: any) => {
         </div>
       </div>
     </Dialog>
-
     {/* Static sidebar for desktop */}
     < div className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col" >
       {/* Sidebar component, swap this element with another sidebar if you like */}
@@ -113,7 +113,6 @@ export const Sidebar = ({ navigation, children }: any) => {
                 )}
               >
                 <item.icon className="mr-3 h-6 w-6 flex-shrink-0 text-indigo-300" aria-hidden="true" />
-                {item.name}
               </a>
             ))}
           </nav>
@@ -133,6 +132,7 @@ export const Sidebar = ({ navigation, children }: any) => {
       </div>
     </div>
     {children}
-  </>
+  </>)}
+  </Context.Consumer>
   )
 }

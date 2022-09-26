@@ -1,9 +1,11 @@
+import { Context } from '../../pages/_app'
+
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export const Navigation = ({ navigation, teams }: { navigation: any, teams: any }) => {
-  return (
+export const Navigation = () => {
+  return (<Context.Consumer>{({ navigation, teams }) => (
     <nav className="mt-6 px-3">
       <div className="space-y-1">
         {navigation.map((item: any) => (
@@ -49,5 +51,5 @@ export const Navigation = ({ navigation, teams }: { navigation: any, teams: any 
         </div>
       </div>
     </nav>
-  )
+  )}</Context.Consumer>)
 }
