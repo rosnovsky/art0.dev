@@ -42,7 +42,7 @@ export const Stats = () => {
     <div className="mt-6 px-4 sm:px-6 lg:px-8">
       <div>
         <dl className="mt-5 grid grid-cols-1 divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow md:grid-cols-3 md:divide-y-0 md:divide-x">
-          {stats.map((item) => (
+          {stats && stats.map((item) => (
             <div key={item.name} className="px-4 py-5 sm:p-6">
               <dt className="text-base font-normal text-gray-900">{item.name}</dt>
               <dd className="mt-1 flex items-baseline justify-between md:block lg:flex">
@@ -70,7 +70,7 @@ export const Stats = () => {
                   )}
 
                   <span className="sr-only"> {item.changeType === 'increase' ? 'Increased' : 'Decreased'} by </span>
-                  {(item.stat - item.previousStat) * 100}%
+                  {(item.stat || 0 - item.previousStat) * 100}%
                 </div>
               </dd>
             </div>

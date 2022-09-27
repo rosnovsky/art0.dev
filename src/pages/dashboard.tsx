@@ -8,7 +8,6 @@ import { createSSGHelpers } from '@trpc/react/ssg'
 import { trpc } from '../utils/trpc'
 import { createContext } from '../server/router/context';
 import { Layout } from '../components/layout'
-import { Context } from './_app'
 import { Button } from '../components/elements/Button'
 import { Actions } from '../utils/types'
 
@@ -19,7 +18,7 @@ export default function Dashboard() {
   const shortQuery = trpc.useQuery(['urls.getAll']);
   const { data } = shortQuery;
 
-  return (<Context.Consumer>{({ stats }) => (
+  return (
     <>
       <div className="min-h-full">
         <Layout sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}>
@@ -33,13 +32,12 @@ export default function Dashboard() {
                 <Button text="Add Link" action={Actions.CreateUrl} />
               </div>
             </div>
-            <Stats stats={stats} />
+            <Stats />
             <UrlList urls={data} />
           </main>
         </Layout>
       </div>
-    </>)}</Context.Consumer>
-  )
+    </>)
 }
 
 export async function getStaticProps(
