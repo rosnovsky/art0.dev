@@ -10,9 +10,10 @@ import { createContext } from '../server/router/context';
 import { Layout } from '../components/layout'
 import { Button } from '../components/elements/Button'
 import { Actions } from '../utils/types'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 
 
-export default function Dashboard() {
+export default withPageAuthRequired(function Dashboard({ user }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const shortQuery = trpc.useQuery(['urls.getAll']);
@@ -38,7 +39,7 @@ export default function Dashboard() {
         </Layout>
       </div>
     </>)
-}
+})
 
 export async function getStaticProps(
   context: GetStaticPropsContext<any>,

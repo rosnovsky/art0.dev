@@ -1,7 +1,7 @@
 import { ChevronRightIcon, StarIcon } from '@heroicons/react/20/solid'
 import Image from 'next/future/image';
 import Link from 'next/link';
-import screenshot from '../../public/static/screenshot2.png';
+import screenshot from '../../public/static/screenshot4.png';
 
 export const Hero = () => {
   return (
@@ -40,12 +40,12 @@ export const Hero = () => {
             <div className="mt-12 sm:flex sm:w-full sm:max-w-lg">
               <div className="min-w-0 flex-1">
                 <div className="mt-4 sm:mt-0 sm:ml-3">
-                  <button
+                  <Link href="/dashboard"><button
                     type="submit"
                     className="block w-full rounded-md border border-transparent bg-blue-500 px-5 py-3 text-base font-medium text-white shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:px-10"
                   >
                     Come on in!
-                  </button>
+                  </button></Link>
                 </div>
               </div>
             </div>

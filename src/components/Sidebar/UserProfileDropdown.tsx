@@ -2,28 +2,30 @@ import { Menu, Transition } from '@headlessui/react'
 import { ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Fragment } from 'react'
 import Image from 'next/future/image'
+import { useUser } from '@auth0/nextjs-auth0';
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export const UserProfileDropdown = () => {
+export default function UserProfileDropdown() {
+  const { user, error, isLoading } = useUser();
   return (
     <Menu as="div" className="relative inline-block px-3 text-left">
       <div>
         <Menu.Button className="group w-full rounded-md bg-gray-100 px-3.5 py-2 text-left text-sm font-medium text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-100">
-          <span className="flex w-full items-center justify-between">
+          {user && <span className="flex w-full items-center justify-between">
             <span className="flex min-w-0 items-center justify-between space-x-3">
               <Image
                 width={50}
                 height={50}
                 className="h-10 w-10 flex-shrink-0 rounded-full bg-gray-300"
-                src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"
+                src={user.picture!}
                 alt=""
               />
               <span className="flex min-w-0 flex-1 flex-col">
-                <span className="truncate text-sm font-medium text-gray-900">Jessy Schwarz</span>
-                <span className="truncate text-sm text-gray-500">@jessyschwarz</span>
+                <span className="truncate text-sm font-medium text-gray-900">{user.name}</span>
+                <span className="truncate text-sm text-gray-500">{user.email}</span>
               </span>
             </span>
             <ChevronUpDownIcon
@@ -31,6 +33,7 @@ export const UserProfileDropdown = () => {
               aria-hidden="true"
             />
           </span>
+          }
         </Menu.Button>
       </div>
       <Transition
@@ -132,3 +135,6 @@ export const UserProfileDropdown = () => {
     </Menu>
   )
 }
+
+
+

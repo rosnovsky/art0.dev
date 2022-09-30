@@ -5,6 +5,7 @@ import { withTRPC } from "@trpc/next";
 import type { AppType } from "next/dist/shared/lib/utils";
 import superjson from "superjson";
 import type { AppRouter } from "../server/router";
+import { UserProvider } from '@auth0/nextjs-auth0';
 import "../styles/globals.css";
 import { createContext } from 'react';
 import { ChartBarIcon, LinkIcon, HomeIcon } from '@heroicons/react/24/outline'
@@ -29,7 +30,7 @@ const stats = [
 export const Context = createContext({ navigation, teams, stats });
 
 const MyApp: AppType = ({ Component, pageProps }) => {
-  return <Context.Provider value={{ navigation, teams, stats }}><Component {...pageProps} /></Context.Provider>;
+  return <UserProvider><Context.Provider value={{ navigation, teams, stats }}><Component {...pageProps} /></Context.Provider></UserProvider>;
 };
 
 const getBaseUrl = () => {

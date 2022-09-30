@@ -1,6 +1,6 @@
 import { Search } from './Search'
 import { Logo } from './Logo'
-import { UserProfileDropdown } from './UserProfileDropdown'
+import UserProfileDropdown from './UserProfileDropdown'
 import { Navigation } from './Navigation'
 
 export const DesktopSidebar = () => {
