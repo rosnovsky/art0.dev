@@ -40,7 +40,7 @@ export async function middleware(request: NextRequest) {
     }
     return NextResponse.redirect(data.longUrl);
   }
-  return NextResponse.redirect("/");
+  return NextResponse.redirect("https://art0.dev/");
 }
 
 // See "Matching Paths" below to learn more
