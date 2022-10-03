@@ -4,14 +4,12 @@ import crypto from "node:crypto";
 import mql from "@microlink/mql";
 
 export const shortenerRouter = createRouter()
-  .query("getUrl", {
+  .mutation("getUrl", {
     input: z.object({
-      slug: z
-        .string()
-        .regex(/[a-zA-Z0-9]+/m)
-        .trim(),
+      slug: z.string(),
     }),
     async resolve({ input, ctx }) {
+      console.log("input", input, ctx);
       return await ctx.prisma.shorts.findFirst({
         where: {
           slug: input.slug,
