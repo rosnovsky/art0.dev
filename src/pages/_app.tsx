@@ -7,8 +7,10 @@ import superjson from "superjson";
 import type { AppRouter } from "../server/router";
 import { UserProvider } from '@auth0/nextjs-auth0';
 import "../styles/globals.css";
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
 import { ChartBarIcon, LinkIcon, HomeIcon } from '@heroicons/react/24/outline'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { trpcReact } from '../utils/trpc';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: HomeIcon, current: true },
@@ -30,7 +32,39 @@ const stats = [
 export const Context = createContext({ navigation, teams, stats });
 
 const MyApp: AppType = ({ Component, pageProps }) => {
-  return <UserProvider><Context.Provider value={{ navigation, teams, stats }}><Component {...pageProps} /></Context.Provider></UserProvider>;
+  const [queryClient] = useState(() => new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: Infinity,
+      },
+    },
+
+  }));
+
+  const [trpcClient] = useState(() =>
+    trpcReact.createClient({
+      links: [
+        httpBatchLink({
+          /**
+           * If you want to use SSR, you need to use the server's full URL
+           * @link https://trpc.io/docs/ssr
+           **/
+          url: `${getBaseUrl()}/api/trpc`,
+        }),
+      ],
+    }),
+  );
+
+  return (
+    <trpcReact.Provider client={trpcClient} queryClient={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <UserProvider>
+          <Context.Provider value={{ navigation, teams, stats }}>
+            <Component {...pageProps} />
+          </Context.Provider>
+        </UserProvider>
+      </QueryClientProvider>
+    </trpcReact.Provider>);
 };
 
 const getBaseUrl = () => {

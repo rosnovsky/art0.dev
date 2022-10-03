@@ -1,13 +1,16 @@
 import Head from "next/head";
-import { trpc } from "../../utils/trpc";
-import { createSSGHelpers } from '@trpc/react/ssg';
-import { GetStaticPropsContext, InferGetServerSidePropsType } from 'next';
+import { GetStaticPropsContext } from 'next';
 import { createContext } from '../../server/router/context';
-import { appRouter } from '../../server/router';
+import { createProxySSGHelpers } from '@trpc/react/ssg'
+import { appRouter } from '../api/trpc/[trpc]'
 import superjson from 'superjson';
+import { trpc } from '../../utils/trpc'
+import { prisma } from '../../server/db/client';
 
-const Home = (props: InferGetServerSidePropsType<typeof getStaticProps>) => {
-  const shortQuery = trpc.useQuery(['urls.getUrl', { slug: props.slug }]);
+
+
+const NewUrl = ({ slug }: { slug: string }) => {
+  const shortQuery = trpc.getUrl.useQuery({ slug })
   const { data } = shortQuery;
   return (
     <>
@@ -30,16 +33,14 @@ const Home = (props: InferGetServerSidePropsType<typeof getStaticProps>) => {
   );
 };
 
-export default Home;
+export default NewUrl;
 
 export async function getStaticPaths() {
-  const ssg = createSSGHelpers({
-    router: appRouter,
-    // @ts-expect-error not sure why this is an error
-    ctx: await createContext(),
-    transformer: superjson,
+  const urls = await prisma.shorts.findMany({
+    select: {
+      slug: true,
+    },
   });
-  const urls = await ssg.fetchQuery('urls.getAll');
   const paths = urls.map((url) => ({
     params: { slug: url.slug },
   }));
@@ -51,17 +52,17 @@ export async function getStaticPaths() {
 
 
 export async function getStaticProps(
-  context: GetStaticPropsContext<{ slug: string }>,
+  context: GetStaticPropsContext<any>,
 ) {
-  const ssg = createSSGHelpers({
+  const ssg = createProxySSGHelpers({
     router: appRouter,
     // @ts-expect-error not sure why this is an error
     ctx: await createContext(context),
     transformer: superjson,
   });
 
-  const slug = context.params?.slug || "";
-  await ssg.fetchQuery('urls.getUrl', { slug });
+  const slug = context.params.slug;
+  await ssg.getUrl.fetch({ slug });
   return {
     props: {
       trpcState: ssg.dehydrate(),

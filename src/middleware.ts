@@ -1,33 +1,46 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { AppRouter } from "./server/router";
-import { createTRPCClient } from "@trpc/client";
+import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
+import { getBaseUrl } from "./utils/trpc";
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
   const url = new URL(request.url);
+  const slug = url.pathname.substring(1);
   if (
+    // TODO: is there a better way to check if it's a slug or not?
     url.pathname.startsWith("/dashboard") ||
     url.pathname.startsWith("/api") ||
     url.pathname.startsWith("/shorts") ||
     url.pathname.startsWith("/_next") ||
     url.pathname === "/favicon.ico"
   ) {
-    console.info("not redirecting", url.pathname);
     return NextResponse.next();
   }
-
-  console.info("redirecting", url.pathname);
-  const client = createTRPCClient<AppRouter>({
-    url: "http://localhost:3000/api/trpc",
+  const client = createTRPCProxyClient<AppRouter>({
+    links: [
+      httpBatchLink({
+        /**
+         * If you want to use SSR, you need to use the server's full URL
+         * @link https://trpc.io/docs/ssr
+         **/
+        url: `${getBaseUrl()}/api/trpc`,
+      }),
+    ],
   });
-  console.log("here we go");
-  const data = await client.mutation("urls.getUrl", {
-    slug: "url.pathname.substring(1)",
-  });
-  console.log("data", data);
 
-  return NextResponse.next();
+  const data = await client.getUrl.query({ slug });
+  if (data) {
+    try {
+      await client.registerClick.mutate({ slug });
+    } catch (error) {
+      console.error(error);
+      throw new Error("Failed to register click");
+    }
+    return NextResponse.redirect(data.longUrl);
+  }
+  return NextResponse.redirect("/");
 }
 
 // See "Matching Paths" below to learn more

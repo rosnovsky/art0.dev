@@ -5,16 +5,16 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-type StatsProps = {
-  stats: { name: string, stat: string, previousStat: string, change: string, changeType: string }[],
-}
+type StatsType = {
+  name: string, stat: number, previousStat: number, change: string, changeType: string
+}[]
 
 export const Stats = () => {
-  const totalUrls = trpc.useQuery(['urls.getAll']).data?.length;
-  const totalClicks = trpc.useQuery(['urls.getAll']).data?.reduce((acc, curr) => acc + curr.clicks, 0);
-  const averageClicks = (totalClicks || 0) / (totalUrls || 1);
+  const totalUrls = trpc.getAll.useQuery().data?.length || 0;
+  const totalClicks = trpc.getAll.useQuery().data?.reduce((acc, curr) => acc + curr.clicks, 0) || 0;
+  const averageClicks = (totalClicks || 0) / (totalUrls || 1) || 0;
 
-  const stats = [
+  const stats: StatsType = [
     {
       name: 'Total URLs',
       stat: totalUrls,
