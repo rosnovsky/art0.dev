@@ -6,8 +6,8 @@ import { trpc } from '../../utils/trpc';
 export const NewShort: NextPage = () => {
   const [longUrl, setLongUrl] = useState<string>("");
   const [inProgress, setInProgress] = useState<boolean>(false);
-  const addUrlMutation = trpc.useMutation('urls.addUrl');
-  const deleteUrlMutation = trpc.useMutation('urls.deleteUrl');
+  const addUrlMutation = trpc.addUrl.useMutation();
+  const deleteUrlMutation = trpc.deleteUrl.useMutation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLongUrl(e.target.value);

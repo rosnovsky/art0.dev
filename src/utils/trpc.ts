@@ -1,6 +1,6 @@
 import { httpBatchLink } from "@trpc/client";
 import { createTRPCNext } from "@trpc/next";
-import { createReactQueryHooks, createTRPCReact } from "@trpc/react";
+import { createTRPCReact } from "@trpc/react";
 import type { AppRouter } from "../pages/api/trpc/[trpc]";
 
 export function getBaseUrl() {
