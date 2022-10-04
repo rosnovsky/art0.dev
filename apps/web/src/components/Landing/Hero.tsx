@@ -1,7 +1,7 @@
-import { ChevronRightIcon, StarIcon } from '@heroicons/react/20/solid'
-import Image from 'next/future/image';
-import Link from 'next/link';
-import screenshot from '../../public/static/screenshot4.png';
+import { ChevronRightIcon, StarIcon } from "@heroicons/react/20/solid";
+import Image from "next/future/image";
+import Link from "next/link";
+import screenshot from "../../public/static/screenshot4.png";
 
 export const Hero = () => {
   return (
@@ -24,7 +24,9 @@ export const Hero = () => {
                   What&apos;s new
                 </span>
                 <span className="inline-flex items-center space-x-1 text-sm font-medium text-blue-500">
-                  <span>Just shipped the <code>init</code> version</span>
+                  <span>
+                    Just shipped the <code>init</code> version
+                  </span>
                   <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                 </span>
               </a>
@@ -34,33 +36,56 @@ export const Hero = () => {
                 Another URL Shortener
               </h1>
               <p className="mt-6 text-xl text-gray-500">
-                But this one is cool because it&apos;s made with love and Next.js.
+                But this one is cool because it&apos;s made with love and
+                Next.js.
               </p>
             </div>
             <div className="mt-12 sm:flex sm:w-full sm:max-w-lg">
               <div className="min-w-0 flex-1">
                 <div className="mt-4 sm:mt-0 sm:ml-3">
-                  <Link href="/dashboard"><button
-                    type="submit"
-                    className="block w-full rounded-md border border-transparent bg-blue-500 px-5 py-3 text-base font-medium text-white shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:px-10"
-                  >
-                    Come on in!
-                  </button></Link>
+                  <Link href="/dashboard">
+                    <button
+                      type="submit"
+                      className="block w-full rounded-md border border-transparent bg-blue-500 px-5 py-3 text-base font-medium text-white shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:px-10"
+                    >
+                      Come on in!
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
             <div className="mt-6">
               <div className="inline-flex items-center divide-x divide-gray-300">
                 <div className="flex flex-shrink-0 pr-5">
-                  <StarIcon className="h-5 w-5 text-yellow-400" aria-hidden="true" />
-                  <StarIcon className="h-5 w-5 text-yellow-400" aria-hidden="true" />
-                  <StarIcon className="h-5 w-5 text-yellow-400" aria-hidden="true" />
-                  <StarIcon className="h-5 w-5 text-yellow-400" aria-hidden="true" />
-                  <StarIcon className="h-5 w-5 text-yellow-400" aria-hidden="true" />
+                  <StarIcon
+                    className="h-5 w-5 text-yellow-400"
+                    aria-hidden="true"
+                  />
+                  <StarIcon
+                    className="h-5 w-5 text-yellow-400"
+                    aria-hidden="true"
+                  />
+                  <StarIcon
+                    className="h-5 w-5 text-yellow-400"
+                    aria-hidden="true"
+                  />
+                  <StarIcon
+                    className="h-5 w-5 text-yellow-400"
+                    aria-hidden="true"
+                  />
+                  <StarIcon
+                    className="h-5 w-5 text-yellow-400"
+                    aria-hidden="true"
+                  />
                 </div>
                 <div className="min-w-0 flex-1 py-1 pl-5 text-sm text-gray-500 sm:py-3">
-                  <span className="font-medium text-gray-900">Rated 5 stars</span> by {' '}
-                  <span className="font-medium text-blue-500"><Link href="https://rosnovsky.us">Art Rosnovsky</Link></span>
+                  <span className="font-medium text-gray-900">
+                    Rated 5 stars
+                  </span>{" "}
+                  by{" "}
+                  <span className="font-medium text-blue-500">
+                    <Link href="https://rosnovsky.us">Art Rosnovsky</Link>
+                  </span>
                 </div>
               </div>
             </div>
@@ -88,10 +113,21 @@ export const Hero = () => {
                   height={20}
                   patternUnits="userSpaceOnUse"
                 >
-                  <rect x={0} y={0} width={4} height={4} className="text-gray-200" fill="currentColor" />
+                  <rect
+                    x={0}
+                    y={0}
+                    width={4}
+                    height={4}
+                    className="text-gray-200"
+                    fill="currentColor"
+                  />
                 </pattern>
               </defs>
-              <rect width={404} height={392} fill="url(#837c3e70-6c3a-44e6-8854-cc48c737b659)" />
+              <rect
+                width={404}
+                height={392}
+                fill="url(#837c3e70-6c3a-44e6-8854-cc48c737b659)"
+              />
             </svg>
           </div>
           <div className="relative -mr-40 pl-4 sm:mx-auto sm:max-w-3xl sm:px-0 lg:h-full lg:max-w-none lg:pl-12">
@@ -99,11 +135,10 @@ export const Hero = () => {
               className="w-full rounded-md shadow-xl ring-1 ring-black ring-opacity-5 lg:h-full lg:w-auto lg:max-w-none"
               src={screenshot}
               alt=""
-
             />
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

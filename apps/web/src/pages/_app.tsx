@@ -5,41 +5,61 @@ import { withTRPC } from "@trpc/next";
 import type { AppType } from "next/dist/shared/lib/utils";
 import superjson from "superjson";
 import type { AppRouter } from "../server/router";
-import { UserProvider } from '@auth0/nextjs-auth0';
+import { UserProvider } from "@auth0/nextjs-auth0";
 import "../styles/globals.css";
-import { createContext, useState } from 'react';
-import { ChartBarIcon, LinkIcon, HomeIcon } from '@heroicons/react/24/outline'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { trpcReact } from '../utils/trpc';
+import { createContext, useState } from "react";
+import { ChartBarIcon, LinkIcon, HomeIcon } from "@heroicons/react/24/outline";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { trpcReact } from "../utils/trpc";
 
 const navigation = [
-  { name: 'Dashboard', href: '/dashboard', icon: HomeIcon, current: true },
-  { name: 'Shorts', href: '#', icon: LinkIcon, current: false },
-  { name: 'Stats', href: '#', icon: ChartBarIcon, current: false },
-]
+  { name: "Dashboard", href: "/dashboard", icon: HomeIcon, current: true },
+  { name: "Shorts", href: "#", icon: LinkIcon, current: false },
+  { name: "Stats", href: "#", icon: ChartBarIcon, current: false },
+];
 const teams = [
-  { name: 'Rosnovsky.us', href: '#', bgColorClass: 'bg-indigo-500' },
-  { name: 'Around the web', href: '#', bgColorClass: 'bg-green-500' },
-  { name: 'Private', href: '#', bgColorClass: 'bg-yellow-500' },
-]
+  { name: "Rosnovsky.us", href: "#", bgColorClass: "bg-indigo-500" },
+  { name: "Around the web", href: "#", bgColorClass: "bg-green-500" },
+  { name: "Private", href: "#", bgColorClass: "bg-yellow-500" },
+];
 
 const stats = [
-  { name: 'Total Links', stat: '31', previousStat: '30', change: '1%', changeType: 'increase' },
-  { name: 'Total Clicks', stat: '96', previousStat: '46', change: '30%', changeType: 'increase' },
-  { name: 'Avg. Click per Link', stat: '7', previousStat: '11', change: '4.05%', changeType: 'decrease' },
-]
+  {
+    name: "Total Links",
+    stat: "31",
+    previousStat: "30",
+    change: "1%",
+    changeType: "increase",
+  },
+  {
+    name: "Total Clicks",
+    stat: "96",
+    previousStat: "46",
+    change: "30%",
+    changeType: "increase",
+  },
+  {
+    name: "Avg. Click per Link",
+    stat: "7",
+    previousStat: "11",
+    change: "4.05%",
+    changeType: "decrease",
+  },
+];
 
 export const Context = createContext({ navigation, teams, stats });
 
 const MyApp: AppType = ({ Component, pageProps }) => {
-  const [queryClient] = useState(() => new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: Infinity,
-      },
-    },
-
-  }));
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: Infinity,
+          },
+        },
+      })
+  );
 
   const [trpcClient] = useState(() =>
     trpcReact.createClient({
@@ -52,7 +72,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           url: `${getBaseUrl()}/api/trpc`,
         }),
       ],
-    }),
+    })
   );
 
   return (
@@ -64,7 +84,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           </Context.Provider>
         </UserProvider>
       </QueryClientProvider>
-    </trpcReact.Provider>);
+    </trpcReact.Provider>
+  );
 };
 
 const getBaseUrl = () => {

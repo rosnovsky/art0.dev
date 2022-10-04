@@ -1,7 +1,7 @@
-import Image from 'next/future/image';
+import Image from "next/future/image";
 import Head from "next/head";
-import { Hero } from '../components/Landing/Hero';
-import { footerNavigation, logos } from '../utils/constants';
+import { Hero } from "../components/Landing/Hero";
+import { footerNavigation, logos } from "../utils/constants";
 
 const Home = () => {
   return (
@@ -26,7 +26,11 @@ const Home = () => {
                     Built with awesome technology
                   </h2>
                   <p className="mt-6 max-w-3xl text-lg leading-7 text-gray-500">
-                    This is a side project I&apos;ve built when I got bored. It&apos;s built with Next.js, Tailwind CSS, and TypeScript. It&apos;s powered by Vercel and uses MongoDB Atlas for the database,with Prisma as the ORM and tRCP as the API. Cool, eh?
+                    This is a side project I&apos;ve built when I got bored.
+                    It&apos;s built with Next.js, Tailwind CSS, and TypeScript.
+                    It&apos;s powered by Vercel and uses MongoDB Atlas for the
+                    database,with Prisma as the ORM and tRCP as the API. Cool,
+                    eh?
                   </p>
                   <div className="mt-6">
                     <a href="#" className="text-base font-medium text-blue-500">
@@ -36,8 +40,17 @@ const Home = () => {
                 </div>
                 <div className="mt-12 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-0 lg:grid-cols-2">
                   {logos.map((logo) => (
-                    <div key={logo.name} className="col-span-1 flex justify-center bg-gray-50 py-8 px-8">
-                      <Image className="max-h-12" src={logo.url} alt={logo.name} width={100} height={60} />
+                    <div
+                      key={logo.name}
+                      className="col-span-1 flex justify-center bg-gray-50 py-8 px-8"
+                    >
+                      <Image
+                        className="max-h-12"
+                        src={logo.url}
+                        alt={logo.name}
+                        width={100}
+                        height={60}
+                      />
                     </div>
                   ))}
                 </div>
@@ -127,10 +140,16 @@ const Home = () => {
         {/* Footer section */}
         <footer className="mt-24 bg-gray-900 sm:mt-12">
           <div className="mx-auto max-w-md overflow-hidden py-12 px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8">
-            <nav className="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
+            <nav
+              className="-mx-5 -my-2 flex flex-wrap justify-center"
+              aria-label="Footer"
+            >
               {footerNavigation.main.map((item) => (
                 <div key={item.name} className="px-5 py-2">
-                  <a href={item.href} className="text-base text-gray-400 hover:text-gray-300">
+                  <a
+                    href={item.href}
+                    className="text-base text-gray-400 hover:text-gray-300"
+                  >
                     {item.name}
                   </a>
                 </div>
@@ -138,7 +157,11 @@ const Home = () => {
             </nav>
             <div className="mt-8 flex justify-center space-x-6">
               {footerNavigation.social.map((item) => (
-                <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-300">
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-gray-400 hover:text-gray-300"
+                >
                   <span className="sr-only">{item.name}</span>
                   <item.icon className="h-6 w-6" aria-hidden="true" />
                 </a>
@@ -151,7 +174,7 @@ const Home = () => {
         </footer>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default Home;

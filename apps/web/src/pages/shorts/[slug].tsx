@@ -1,16 +1,14 @@
 import Head from "next/head";
-import { GetStaticPropsContext } from 'next';
-import { createContext } from '../../server/router/context';
-import { createProxySSGHelpers } from '@trpc/react/ssg'
-import { appRouter } from '../api/trpc/[trpc]'
-import superjson from 'superjson';
-import { trpc } from '../../utils/trpc'
-import { prisma } from '../../server/db/client';
-
-
+import { GetStaticPropsContext } from "next";
+import { createContext } from "../../server/router/context";
+import { createProxySSGHelpers } from "@trpc/react/ssg";
+import { appRouter } from "../api/trpc/[trpc]";
+import superjson from "superjson";
+import { trpc } from "../../utils/trpc";
+import { prisma } from "../../server/db/client";
 
 const NewUrl = ({ slug }: { slug: string }) => {
-  const shortQuery = trpc.getUrl.useQuery({ slug })
+  const shortQuery = trpc.getUrl.useQuery({ slug });
   const { data } = shortQuery;
   return (
     <>
@@ -46,14 +44,11 @@ export async function getStaticPaths() {
   }));
   return {
     paths,
-    fallback: 'blocking',
+    fallback: "blocking",
   };
 }
 
-
-export async function getStaticProps(
-  context: GetStaticPropsContext<any>,
-) {
+export async function getStaticProps(context: GetStaticPropsContext<any>) {
   const ssg = createProxySSGHelpers({
     router: appRouter,
     // @ts-expect-error not sure why this is an error

@@ -1,35 +1,33 @@
-import vercelLogo from '../public/static/vercel.svg';
-import trpcLogo from '../public/static/trpc.svg';
-import prismaLogo from '../public/static/prisma.svg';
-import nextjsLogo from '../public/static/nextjs.svg';
-import tailwindcssLogo from '../public/static/tailwindcss.svg';
-import mongodbLogo from '../public/static/mongodb.svg';
-
+import vercelLogo from "../public/static/vercel.svg";
+import trpcLogo from "../public/static/trpc.svg";
+import prismaLogo from "../public/static/prisma.svg";
+import nextjsLogo from "../public/static/nextjs.svg";
+import tailwindcssLogo from "../public/static/tailwindcss.svg";
+import mongodbLogo from "../public/static/mongodb.svg";
 
 export const stats = [
-  { label: 'Founded', value: '2021' },
-  { label: 'Employees', value: '5' },
-  { label: 'Beta Users', value: '521' },
-  { label: 'Raised', value: '$25M' },
-]
+  { label: "Founded", value: "2021" },
+  { label: "Employees", value: "5" },
+  { label: "Beta Users", value: "521" },
+  { label: "Raised", value: "$25M" },
+];
 export const logos = [
-  { name: 'Vercel', url: vercelLogo },
-  { name: 'Next.JS', url: nextjsLogo },
-  { name: 'TailwindCSS', url: tailwindcssLogo },
-  { name: 'Prisma', url: prismaLogo },
-  { name: 'tRPC', url: trpcLogo },
-  { name: 'MongoDB', url: mongodbLogo },
-]
+  { name: "Vercel", url: vercelLogo },
+  { name: "Next.JS", url: nextjsLogo },
+  { name: "TailwindCSS", url: tailwindcssLogo },
+  { name: "Prisma", url: prismaLogo },
+  { name: "tRPC", url: trpcLogo },
+  { name: "MongoDB", url: mongodbLogo },
+];
 export const footerNavigation = {
   main: [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '#' },
-
+    { name: "Home", href: "/" },
+    { name: "About", href: "#" },
   ],
   social: [
     {
-      name: 'Twitter',
-      href: '#',
+      name: "Twitter",
+      href: "#",
       icon: (props: any) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
@@ -37,8 +35,8 @@ export const footerNavigation = {
       ),
     },
     {
-      name: 'GitHub',
-      href: '#',
+      name: "GitHub",
+      href: "#",
       icon: (props: any) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -50,4 +48,4 @@ export const footerNavigation = {
       ),
     },
   ],
-}
+};

@@ -1,7 +1,7 @@
-import type { NextPage } from 'next'
-import { useState } from 'react';
-import { Layout } from '../../components/layout';
-import { trpc } from '../../utils/trpc';
+import type { NextPage } from "next";
+import { useState } from "react";
+import { Layout } from "../../components/layout";
+import { trpc } from "../../utils/trpc";
 
 export const NewShort: NextPage = () => {
   const [longUrl, setLongUrl] = useState<string>("");
@@ -14,20 +14,20 @@ export const NewShort: NextPage = () => {
   };
 
   const handleNewShort = async () => {
-    const resolveHostName = longUrl.replace(/\/\/|.+\/\//, '')
-    setLongUrl(resolveHostName)
+    const resolveHostName = longUrl.replace(/\/\/|.+\/\//, "");
+    setLongUrl(resolveHostName);
     setInProgress(true);
-    addUrlMutation.mutate({ longUrl: `https://${resolveHostName}` })
+    addUrlMutation.mutate({ longUrl: `https://${resolveHostName}` });
     setInProgress(false);
-    setLongUrl("")
-    window.location.href = '/dashboard';
-  }
+    setLongUrl("");
+    window.location.href = "/dashboard";
+  };
 
   const handleDeleteShort = async () => {
     setInProgress(true);
-    deleteUrlMutation.mutate({ longUrl })
+    deleteUrlMutation.mutate({ longUrl });
     setInProgress(false);
-  }
+  };
 
   return (
     <div className="min-h-full">
@@ -35,7 +35,9 @@ export const NewShort: NextPage = () => {
         <main className="flex-1">
           <div className="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
             <div className="min-w-0 flex-1">
-              <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate">Add new link</h1>
+              <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate">
+                Add new link
+              </h1>
             </div>
           </div>
           <div className="max-w-3xl mx-auto mt-6 px-4 sm:px-6 lg:px-8">
@@ -43,16 +45,25 @@ export const NewShort: NextPage = () => {
               <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
                 <div className="space-y-6 sm:space-y-5">
                   <div>
-                    <h3 className="text-lg font-medium leading-6 text-gray-900">Add/Update Link</h3>
+                    <h3 className="text-lg font-medium leading-6 text-gray-900">
+                      Add/Update Link
+                    </h3>
                     <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                      Updating a link will update all its previous slugs to redirect to this new one (if you choose to specify it).
+                      Updating a link will update all its previous slugs to
+                      redirect to this new one (if you choose to specify it).
                     </p>
                   </div>
 
                   <div className="space-y-6 sm:space-y-5">
                     <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-                      <label htmlFor="username" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                        Link to be shorten<span className="text-red-800 text-md"><sup>*</sup></span>
+                      <label
+                        htmlFor="username"
+                        className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                      >
+                        Link to be shorten
+                        <span className="text-red-800 text-md">
+                          <sup>*</sup>
+                        </span>
                       </label>
                       <div className="mt-1 sm:col-span-2 sm:mt-0">
                         <div className="flex max-w-lg rounded-md shadow-sm">
@@ -70,7 +81,10 @@ export const NewShort: NextPage = () => {
                           />
                         </div>
                       </div>
-                      <label htmlFor="username" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                      <label
+                        htmlFor="username"
+                        className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                      >
                         Specify Slug
                       </label>
                       <div className="mt-1 sm:col-span-2 sm:mt-0">
@@ -92,13 +106,15 @@ export const NewShort: NextPage = () => {
               </div>
 
               <div className="pt-5 flex justify-between">
-                <div className="justify-start"><button
-                  type="button"
-                  onClick={handleDeleteShort}
-                  className="rounded-md border border-red-300 bg-red-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-50 hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-                >
-                  Delete
-                </button></div>
+                <div className="justify-start">
+                  <button
+                    type="button"
+                    onClick={handleDeleteShort}
+                    className="rounded-md border border-red-300 bg-red-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-red-50 hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                  >
+                    Delete
+                  </button>
+                </div>
                 <div className="justify-end">
                   <button
                     type="button"
@@ -121,7 +137,7 @@ export const NewShort: NextPage = () => {
         </main>
       </Layout>
     </div>
-  )
-}
+  );
+};
 
-export default NewShort
+export default NewShort;

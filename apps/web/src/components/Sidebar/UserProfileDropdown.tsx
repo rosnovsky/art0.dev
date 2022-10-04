@@ -1,11 +1,11 @@
-import { Menu, Transition } from '@headlessui/react'
-import { ChevronUpDownIcon } from '@heroicons/react/20/solid'
-import { Fragment } from 'react'
-import Image from 'next/future/image'
-import { useUser } from '@auth0/nextjs-auth0';
+import { Menu, Transition } from "@headlessui/react";
+import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { Fragment } from "react";
+import Image from "next/future/image";
+import { useUser } from "@auth0/nextjs-auth0";
 
 function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function UserProfileDropdown() {
@@ -14,26 +14,31 @@ export default function UserProfileDropdown() {
     <Menu as="div" className="relative inline-block px-3 text-left">
       <div>
         <Menu.Button className="group w-full rounded-md bg-gray-100 px-3.5 py-2 text-left text-sm font-medium text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-100">
-          {user && <span className="flex w-full items-center justify-between">
-            <span className="flex min-w-0 items-center justify-between space-x-3">
-              <Image
-                width={50}
-                height={50}
-                className="h-10 w-10 flex-shrink-0 rounded-full bg-gray-300"
-                src={user.picture!}
-                alt=""
-              />
-              <span className="flex min-w-0 flex-1 flex-col">
-                <span className="truncate text-sm font-medium text-gray-900">{user.name}</span>
-                <span className="truncate text-sm text-gray-500">{user.email}</span>
+          {user && (
+            <span className="flex w-full items-center justify-between">
+              <span className="flex min-w-0 items-center justify-between space-x-3">
+                <Image
+                  width={50}
+                  height={50}
+                  className="h-10 w-10 flex-shrink-0 rounded-full bg-gray-300"
+                  src={user.picture!}
+                  alt=""
+                />
+                <span className="flex min-w-0 flex-1 flex-col">
+                  <span className="truncate text-sm font-medium text-gray-900">
+                    {user.name}
+                  </span>
+                  <span className="truncate text-sm text-gray-500">
+                    {user.email}
+                  </span>
+                </span>
               </span>
+              <ChevronUpDownIcon
+                className="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                aria-hidden="true"
+              />
             </span>
-            <ChevronUpDownIcon
-              className="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-              aria-hidden="true"
-            />
-          </span>
-          }
+          )}
         </Menu.Button>
       </div>
       <Transition
@@ -52,8 +57,8 @@ export default function UserProfileDropdown() {
                 <a
                   href="#"
                   className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block px-4 py-2 text-sm"
                   )}
                 >
                   View profile
@@ -65,8 +70,8 @@ export default function UserProfileDropdown() {
                 <a
                   href="#"
                   className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block px-4 py-2 text-sm"
                   )}
                 >
                   Settings
@@ -78,8 +83,8 @@ export default function UserProfileDropdown() {
                 <a
                   href="#"
                   className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block px-4 py-2 text-sm"
                   )}
                 >
                   Notifications
@@ -93,8 +98,8 @@ export default function UserProfileDropdown() {
                 <a
                   href="#"
                   className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block px-4 py-2 text-sm"
                   )}
                 >
                   Get desktop app
@@ -106,8 +111,8 @@ export default function UserProfileDropdown() {
                 <a
                   href="#"
                   className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block px-4 py-2 text-sm"
                   )}
                 >
                   Support
@@ -121,8 +126,8 @@ export default function UserProfileDropdown() {
                 <a
                   href="#"
                   className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block px-4 py-2 text-sm"
                   )}
                 >
                   Logout
@@ -133,8 +138,5 @@ export default function UserProfileDropdown() {
         </Menu.Items>
       </Transition>
     </Menu>
-  )
+  );
 }
-
-
-

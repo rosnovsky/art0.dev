@@ -1,9 +1,9 @@
-import { Menu, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
-import Image from 'next/future/image'
+import { Menu, Transition } from "@headlessui/react";
+import { Fragment } from "react";
+import Image from "next/future/image";
 
 function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 export const MobileProfileDropdown = () => {
@@ -39,8 +39,8 @@ export const MobileProfileDropdown = () => {
                   <a
                     href="#"
                     className={classNames(
-                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'block px-4 py-2 text-sm'
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block px-4 py-2 text-sm"
                     )}
                   >
                     View profile
@@ -52,8 +52,8 @@ export const MobileProfileDropdown = () => {
                   <a
                     href="#"
                     className={classNames(
-                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'block px-4 py-2 text-sm'
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block px-4 py-2 text-sm"
                     )}
                   >
                     Settings
@@ -65,8 +65,8 @@ export const MobileProfileDropdown = () => {
                   <a
                     href="#"
                     className={classNames(
-                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'block px-4 py-2 text-sm'
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block px-4 py-2 text-sm"
                     )}
                   >
                     Notifications
@@ -80,8 +80,8 @@ export const MobileProfileDropdown = () => {
                   <a
                     href="#"
                     className={classNames(
-                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'block px-4 py-2 text-sm'
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block px-4 py-2 text-sm"
                     )}
                   >
                     Get desktop app
@@ -93,8 +93,8 @@ export const MobileProfileDropdown = () => {
                   <a
                     href="#"
                     className={classNames(
-                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'block px-4 py-2 text-sm'
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block px-4 py-2 text-sm"
                     )}
                   >
                     Support
@@ -108,8 +108,8 @@ export const MobileProfileDropdown = () => {
                   <a
                     href="#"
                     className={classNames(
-                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'block px-4 py-2 text-sm'
+                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                      "block px-4 py-2 text-sm"
                     )}
                   >
                     Logout
@@ -121,5 +121,5 @@ export const MobileProfileDropdown = () => {
         </Transition>
       </Menu>
     </div>
-  )
-}
+  );
+};

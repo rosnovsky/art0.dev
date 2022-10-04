@@ -1,9 +1,9 @@
-import { PlusIcon } from '@heroicons/react/20/solid'
-import Link from 'next/link'
-import { Actions } from '../../utils/types'
+import { PlusIcon } from "@heroicons/react/20/solid";
+import Link from "next/link";
+import { Actions } from "../../utils/types";
 
-export const Button = ({ text, action }: { text: string, action: Actions }) => {
-  const href = action === Actions.CreateUrl ? '/shorts/new' : '/shorts/update'
+export const Button = ({ text, action }: { text: string; action: Actions }) => {
+  const href = action === Actions.CreateUrl ? "/shorts/new" : "/shorts/update";
   return (
     <Link href={href}>
       <button
@@ -14,5 +14,5 @@ export const Button = ({ text, action }: { text: string, action: Actions }) => {
         {text}
       </button>
     </Link>
-  )
-}
+  );
+};

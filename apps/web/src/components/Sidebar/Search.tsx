@@ -1,4 +1,4 @@
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
 export const Search = () => {
   return (
@@ -11,7 +11,10 @@ export const Search = () => {
           className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
           aria-hidden="true"
         >
-          <MagnifyingGlassIcon className="mr-3 h-4 w-4 text-gray-400" aria-hidden="true" />
+          <MagnifyingGlassIcon
+            className="mr-3 h-4 w-4 text-gray-400"
+            aria-hidden="true"
+          />
         </div>
         <input
           type="text"
@@ -22,5 +25,5 @@ export const Search = () => {
         />
       </div>
     </div>
-  )
-}
+  );
+};

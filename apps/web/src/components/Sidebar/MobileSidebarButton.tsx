@@ -1,6 +1,10 @@
-import { Bars3CenterLeftIcon } from '@heroicons/react/20/solid'
+import { Bars3CenterLeftIcon } from "@heroicons/react/20/solid";
 
-export const MobileSidebarButton = ({ setSidebarOpen }: { setSidebarOpen: any }) => {
+export const MobileSidebarButton = ({
+  setSidebarOpen,
+}: {
+  setSidebarOpen: any;
+}) => {
   return (
     <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 border-b border-gray-200 bg-white lg:hidden">
       <button
@@ -12,5 +16,5 @@ export const MobileSidebarButton = ({ setSidebarOpen }: { setSidebarOpen: any })
         <Bars3CenterLeftIcon className="h-6 w-6" aria-hidden="true" />
       </button>
     </div>
-  )
-}
+  );
+};

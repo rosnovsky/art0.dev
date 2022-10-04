@@ -1,4 +1,4 @@
-import Image from 'next/future/image'
+import Image from "next/future/image";
 
 export const Logo = () => {
   return (
@@ -11,5 +11,5 @@ export const Logo = () => {
         alt="Your Company"
       />
     </div>
-  )
-}
+  );
+};
