@@ -2,8 +2,10 @@ import type { NextPage } from "next";
 import { useState } from "react";
 import { Layout } from "../../components/layout";
 import { trpc } from "../../utils/trpc";
+import { useUser } from '@auth0/nextjs-auth0';
 
 export const NewShort: NextPage = () => {
+  const { user } = useUser();
   const [longUrl, setLongUrl] = useState<string>("");
   const [inProgress, setInProgress] = useState<boolean>(false);
   const addUrlMutation = trpc.addUrl.useMutation();
@@ -14,10 +16,11 @@ export const NewShort: NextPage = () => {
   };
 
   const handleNewShort = async () => {
+    if (!user?.sub) return;
     const resolveHostName = longUrl.replace(/\/\/|.+\/\//, "");
     setLongUrl(resolveHostName);
     setInProgress(true);
-    addUrlMutation.mutate({ longUrl: `https://${resolveHostName}` });
+    addUrlMutation.mutate({ longUrl: `https://${resolveHostName}`, user: user.sub });
     setInProgress(false);
     setLongUrl("");
     window.location.href = "/dashboard";

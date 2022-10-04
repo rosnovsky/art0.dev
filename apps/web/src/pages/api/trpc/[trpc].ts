@@ -6,6 +6,7 @@ import { env } from "../../../env/server.mjs";
 import { createContext } from "../../../server/router/context";
 import crypto from "node:crypto";
 import mql from "@microlink/mql";
+import { Shorts } from "../../../generated/prisma-client";
 
 export const t = initTRPC.context<Context>().create();
 
@@ -24,7 +25,15 @@ export const appRouter = t.router({
       });
     }),
   getAll: t.procedure.query(async ({ ctx }) => {
-    return await ctx.prisma.shorts.findMany();
+    const shorts = await ctx.prisma.shorts.findMany();
+    const clicks = await shorts.forEach(async (short) => {
+      return await ctx.prisma.click.count({
+        where: {
+          shortsId: short.id,
+        },
+      });
+    });
+    return { shorts, clicks };
   }),
   registerClick: t.procedure
     .input(
@@ -33,21 +42,27 @@ export const appRouter = t.router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      return await ctx.prisma.shorts.update({
+      const short = await ctx.prisma.shorts.findFirst({
         where: {
           slug: input.slug,
         },
+      });
+      if (!short) {
+        throw new Error("Short not found");
+      }
+      return await ctx.prisma.click.create({
         data: {
-          clicks: {
-            increment: 1,
-          },
+          country: "US",
+          city: "New York",
+          shortsId: short.id,
         },
       });
     }),
   addUrl: t.procedure
     // validate input with Zod
-    .input(z.object({ longUrl: z.string().url() }))
+    .input(z.object({ longUrl: z.string().url(), user: z.string() }))
     .mutation(async ({ input, ctx }) => {
+      console.log(input.user);
       const slug = crypto
         .createHash("sha256")
         .update(input.longUrl)
@@ -61,14 +76,15 @@ export const appRouter = t.router({
       }
       const { status, data } = await mql(input.longUrl, { meta: true });
       const { title, logo } = data;
+
       return await ctx.prisma.shorts.create({
         data: {
           longUrl: input.longUrl,
           slug,
           shortUrl: `https://art0.dev/${slug}`,
-          clicks: 0,
           title: title || "",
           favicon: logo?.url || "",
+          userId: input.user,
         },
       });
     }),

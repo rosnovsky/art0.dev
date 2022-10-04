@@ -1,23 +1,33 @@
 import Image from "next/future/image";
 import Toggle from "../elements/Toggle";
+type Click = {
+  _id: string;
+  timestamp: string;
+  country: string;
+  city: string;
+  shortsId: string;
+}
 
 type UrlProps = {
   url: {
-    _id: string;
-    longUrl: string;
-    shortUrl: string;
-    slug: string;
-    createdAt?: string;
-    updatedAt?: string;
-    active?: boolean;
-    clicks?: number;
-    title?: string;
-    favicon?: string;
-  }[];
+    shorts: {
+      _id: string;
+      longUrl: string;
+      shortUrl: string;
+      slug: string;
+      createdAt?: string;
+      updatedAt?: string;
+      active?: boolean;
+      clicks: string[];
+      title?: string;
+      favicon?: string;
+      userId: string;
+    }[];
+    clicks: number;
+  }
 };
 
 export default function Url({ url }: UrlProps) {
-  console.log(url);
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
@@ -63,7 +73,7 @@ export default function Url({ url }: UrlProps) {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  {url.map((url) => (
+                  {url.shorts.map((url) => (
                     <tr key={url._id}>
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
                         <div className="flex items-center">

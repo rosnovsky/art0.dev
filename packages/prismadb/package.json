@@ -1,0 +1,16 @@
+{
+  "name": "prismadb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "prisma generate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "prisma": "latest",
+    "@prisma/client": "^4.4.0"
+  }
+}

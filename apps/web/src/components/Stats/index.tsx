@@ -14,9 +14,9 @@ type StatsType = {
 }[];
 
 export const Stats = () => {
-  const totalUrls = trpc.getAll.useQuery().data?.length || 0;
+  const totalUrls = trpc.getAll.useQuery().data?.clicks || 0;
   const totalClicks =
-    trpc.getAll.useQuery().data?.reduce((acc, curr) => acc + curr.clicks, 0) ||
+    trpc.getAll.useQuery().data?.clicks ||
     0;
   const averageClicks = Math.floor((totalClicks || 0) / (totalUrls || 1)) || 0;
 
