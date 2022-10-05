@@ -61,7 +61,6 @@ export const appRouter = t.router({
     // validate input with Zod
     .input(z.object({ longUrl: z.string().url(), user: z.string() }))
     .mutation(async ({ input, ctx }) => {
-      console.log(input.user);
       const slug = crypto
         .createHash("sha256")
         .update(input.longUrl)

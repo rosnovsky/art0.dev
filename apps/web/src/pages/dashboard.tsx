@@ -52,7 +52,6 @@ export async function getStaticProps(context: GetStaticPropsContext<any>) {
   });
 
   const all = await ssg.getAll.fetch();
-  console.log(all)
   return {
     props: {
       trpcState: ssg.dehydrate(),
