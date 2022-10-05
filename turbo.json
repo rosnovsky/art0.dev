@@ -4,6 +4,14 @@
     "build": {
       "dependsOn": [
         "^build"
+      ],
+      "env": [
+        "VERCEL_URL",
+        "NEXT_PUBLIC_VERCEL_URL",
+        "VERCEL_URL",
+        "PORT",
+        "NODE_ENV",
+        "RENDER_INTERNAL_HOSTNAME"
       ]
     },
     "art0.dev#build": {
@@ -12,6 +20,7 @@
       ],
       "env": [
         "NEXT_PUBLIC_VERCEL_URL",
+        "VERCEL_URL",
         "PORT",
         "NODE_ENV",
         "RENDER_INTERNAL_HOSTNAME"
@@ -25,8 +34,14 @@
     "dev": {
       "dependsOn": [
         "prismadb#build"
-      ],
-      "cache": false
+      ]
     }
-  }
+  },
+  "globalEnv": [
+    "VERCEL_URL",
+    "NEXT_PUBLIC_VERCEL_URL",
+    "PORT",
+    "NODE_ENV",
+    "RENDER_INTERNAL_HOSTNAME"
+  ]
 }

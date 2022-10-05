@@ -6,7 +6,6 @@ import { env } from "../../../env/server.mjs";
 import { createContext } from "../../../server/router/context";
 import crypto from "node:crypto";
 import mql from "@microlink/mql";
-import { Shorts } from "../../../generated/prisma-client";
 
 export const t = initTRPC.context<Context>().create();
 

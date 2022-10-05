@@ -1,7 +1,8 @@
 {
   "name": "prismadb",
   "version": "1.0.0",
-  "description": "",
+  "description": "What a great project!",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "build": "prisma generate"
@@ -10,7 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "prisma": "latest",
-    "@prisma/client": "^4.4.0"
+    "@prisma/client": "^4.4.0",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "prisma": "^4.4.0"
   }
 }

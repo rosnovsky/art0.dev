@@ -34,5 +34,4 @@ export default defineNextConfig({
     newNextLinkBehavior: true,
     scrollRestoration: true,
   },
-  swcMinify: true,
 });

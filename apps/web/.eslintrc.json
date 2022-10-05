@@ -16,5 +16,9 @@
     "coverage/",
     "next.config.js",
     "generated/"
-  ]
+  ],
+  "rules": {
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-explicit-any": "off"
+  }
 }
