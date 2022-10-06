@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { useState } from "react";
 import { Layout } from "../../components/layout";
 import { trpc } from "../../utils/trpc";
-import { useUser } from '@auth0/nextjs-auth0';
+import { useUser } from "@auth0/nextjs-auth0";
 
 export const NewShort: NextPage = () => {
   const { user } = useUser();
@@ -20,7 +20,10 @@ export const NewShort: NextPage = () => {
     const resolveHostName = longUrl.replace(/\/\/|.+\/\//, "");
     setLongUrl(resolveHostName);
     setInProgress(true);
-    addUrlMutation.mutate({ longUrl: `https://${resolveHostName}`, user: user.sub });
+    addUrlMutation.mutate({
+      longUrl: `https://${resolveHostName}`,
+      user: user.sub,
+    });
     setInProgress(false);
     setLongUrl("");
     window.location.href = "/dashboard";

@@ -6,7 +6,7 @@ type Click = {
   country: string;
   city: string;
   shortsId: string;
-}
+};
 
 type UrlProps = {
   url: {
@@ -24,7 +24,7 @@ type UrlProps = {
       userId: string;
     }[];
     clicks: number;
-  }
+  };
 };
 
 export default function Url({ url }: UrlProps) {
