@@ -72,8 +72,15 @@ export const appRouter = t.router({
       if (notUnique) {
         return notUnique;
       }
-      const { status, data } = await mql(input.longUrl, { meta: true });
-      const { title, logo } = data;
+      const { status, data } = await mql(input.longUrl, {
+        meta: true,
+        screenshot: {
+          type: "png",
+          fullPage: true,
+          waitForTimeout: 3000,
+        },
+      });
+      const { title, logo, screenshot } = data;
 
       return await ctx.prisma.shorts.create({
         data: {
@@ -83,6 +90,7 @@ export const appRouter = t.router({
           title: title || "",
           favicon: logo?.url || "",
           userId: input.user,
+          screenshot: screenshot?.url || "",
         },
       });
     }),

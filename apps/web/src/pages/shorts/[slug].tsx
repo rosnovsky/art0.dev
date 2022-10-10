@@ -6,6 +6,7 @@ import { appRouter } from "../api/trpc/[trpc]";
 import superjson from "superjson";
 import { trpc } from "../../utils/trpc";
 import { prisma } from "../../server/db/client";
+import Image from "next/future/image";
 
 const NewUrl = ({ slug }: { slug: string }) => {
   const shortQuery = trpc.getUrl.useQuery({ slug });
@@ -26,6 +27,7 @@ const NewUrl = ({ slug }: { slug: string }) => {
         <div className="pt-6 text-2xl text-blue-500 flex justify-center items-center w-full">
           {data?.longUrl}
         </div>
+        <div><Image src={data?.screenshot} width={600} height={400} alt="" /></div>
       </main>
     </>
   );
