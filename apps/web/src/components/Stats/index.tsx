@@ -1,3 +1,4 @@
+import { useUser } from '@auth0/nextjs-auth0';
 import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/20/solid";
 import { trpc } from "../../utils/trpc";
 
@@ -14,8 +15,10 @@ type StatsType = {
 }[];
 
 export const Stats = () => {
-  const totalUrls = trpc.getAll.useQuery().data?.clicks || 0;
-  const totalClicks = trpc.getAll.useQuery().data?.clicks || 0;
+  const { user } = useUser()
+
+  const totalUrls = trpc.getAll.useQuery({ userId: user!.sub! }).data?.length || 0;
+  const totalClicks = trpc.getAllClicks.useQuery().data || 0;
   const averageClicks = Math.floor((totalClicks || 0) / (totalUrls || 1)) || 0;
 
   const stats: StatsType = [

@@ -33,8 +33,16 @@ export async function middleware(request: NextRequest) {
 
   const data = await client.getUrl.query({ slug });
   if (data) {
+    if (!data.status) {
+      return NextResponse.redirect("https://art0.dev/deactivated");
+    }
     try {
-      await client.registerClick.mutate({ slug });
+      await client.registerClick.mutate({
+        slug,
+        region: request.geo?.region || "Unknown",
+        country: request.geo?.country || "Unknown",
+        city: request.geo?.city || "Unknown",
+      });
     } catch (error) {
       console.error(error);
       throw new Error("Failed to register click");

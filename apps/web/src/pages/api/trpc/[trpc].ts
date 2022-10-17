@@ -12,9 +12,11 @@ export const t = initTRPC.context<Context>().create();
 export const appRouter = t.router({
   getUrl: t.procedure
     .input(
-      z.object({
-        slug: z.string(),
-      })
+      z
+        .object({
+          slug: z.string(),
+        })
+        .required()
     )
     .query(async ({ input, ctx }) => {
       return await ctx.prisma.shorts.findFirst({
@@ -23,21 +25,46 @@ export const appRouter = t.router({
         },
       });
     }),
-  getAll: t.procedure.query(async ({ ctx }) => {
-    const shorts = await ctx.prisma.shorts.findMany();
-    const clicks = await shorts.forEach(async (short) => {
-      return await ctx.prisma.click.count({
+  getAllClicks: t.procedure.query(async ({ ctx }) => {
+    return await ctx.prisma.click.count();
+  }),
+  getClicks: t.procedure.input(z.string()).query(async ({ input, ctx }) => {
+    return await ctx.prisma.click.count({
+      where: {
+        shortsId: input,
+      },
+    });
+  }),
+  update: t.procedure
+    .input(z.object({ id: z.string(), status: z.boolean() }))
+    .mutation(async ({ input, ctx }) => {
+      console.log("update", input);
+      return await ctx.prisma.shorts.update({
         where: {
-          shortsId: short.id,
+          id: input.id,
+        },
+        data: {
+          status: input.status,
         },
       });
-    });
-    return { shorts, clicks };
-  }),
+    }),
+  getAll: t.procedure
+    .input(z.object({ userId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const shorts = await ctx.prisma.shorts.findMany({
+        where: {
+          userId: input.userId,
+        },
+      });
+      return shorts;
+    }),
   registerClick: t.procedure
     .input(
       z.object({
         slug: z.string(),
+        country: z.string(),
+        region: z.string(),
+        city: z.string(),
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -51,8 +78,9 @@ export const appRouter = t.router({
       }
       return await ctx.prisma.click.create({
         data: {
-          country: "US",
-          city: "New York",
+          country: input.country,
+          region: input.region,
+          city: input.city,
           shortsId: short.id,
         },
       });
@@ -90,7 +118,7 @@ export const appRouter = t.router({
           title: title || "",
           favicon: logo?.url || "",
           userId: input.user,
-          screenshot: screenshot?.url || "",
+          screenshot: screenshot?.url,
         },
       });
     }),

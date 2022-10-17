@@ -27,7 +27,7 @@ const NewUrl = ({ slug }: { slug: string }) => {
         <div className="pt-6 text-2xl text-blue-500 flex justify-center items-center w-full">
           {data?.longUrl}
         </div>
-        <div><Image src={data?.screenshot} width={600} height={400} alt="" /></div>
+        <div><Image src={data?.screenshot || ""} width={600} height={400} alt="" /></div>
       </main>
     </>
   );
@@ -65,5 +65,6 @@ export async function getStaticProps(context: GetStaticPropsContext<any>) {
       trpcState: ssg.dehydrate(),
       slug,
     },
+    revalidate: 5
   };
 }

@@ -1,21 +1,22 @@
 import { useState } from "react";
 import { Stats } from "../components/Stats";
 import UrlList from "../components/Dashboard/UrlList";
-import { GetStaticPropsContext } from "next/types";
+import { GetServerSideProps } from "next/types";
 import superjson from "superjson";
 import { trpcReact } from "../utils/trpc";
 import { createContext } from "../server/router/context";
 import { Layout } from "../components/layout";
 import { Button } from "../components/elements/Button";
 import { Actions } from "../utils/types";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { withPageAuthRequired, useUser } from "@auth0/nextjs-auth0";
 import { createProxySSGHelpers } from "@trpc/react/ssg";
 import { appRouter } from "./api/trpc/[trpc]";
 
 export default withPageAuthRequired(function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { user } = useUser();
 
-  const shortQuery = trpcReact.getAll.useQuery();
+  const shortQuery = trpcReact.getAll.useQuery({ userId: user!.sub! });
   const { data } = shortQuery;
 
   return (
@@ -43,19 +44,19 @@ export default withPageAuthRequired(function Dashboard() {
   );
 });
 
-export async function getStaticProps(context: GetStaticPropsContext<any>) {
-  const ssg = createProxySSGHelpers({
-    router: appRouter,
-    // @ts-expect-error not sure why this is an error
-    ctx: await createContext(context),
-    transformer: superjson,
-  });
+// export async function getServerSideProps(context: GetServerSideProps) {
+//   const ssg = createProxySSGHelpers({
+//     router: appRouter,
+//     // @ts-expect-error not sure why this is an error
+//     ctx: await createContext(context),
+//     transformer: superjson,
+//   });
 
-  const all = await ssg.getAll.fetch();
-  return {
-    props: {
-      trpcState: ssg.dehydrate(),
-    },
-    revalidate: 5,
-  };
-}
+//   await ssg.getAll.fetch({ userId: getSession(context).user.sub });
+//   return {
+//     props: {
+//       trpcState: ssg.dehydrate(),
+//     },
+//     revalidate: 5,
+//   };
+// }
