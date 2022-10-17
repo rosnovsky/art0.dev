@@ -93,6 +93,7 @@ export const appRouter = t.router({
         .createHash("sha256")
         .update(input.longUrl)
         .digest("base64")
+        .replace(/[^a-zA-Z0-9]/g, "")
         .substring(0, 6);
       const notUnique = await ctx.prisma.shorts.findFirst({
         where: { slug },
