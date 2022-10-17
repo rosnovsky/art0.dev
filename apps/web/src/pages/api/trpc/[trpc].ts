@@ -105,7 +105,7 @@ export const appRouter = t.router({
         screenshot: {
           type: "png",
           fullPage: true,
-          waitForTimeout: 3000,
+          waitUntil: "networkidle2",
         },
       });
       const { title, logo, screenshot } = data;
