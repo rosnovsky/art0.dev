@@ -61,7 +61,7 @@ export default function Url({ url }) {
             href={`/shorts/${url.slug}`}
             className="text-indigo-600 hover:text-indigo-900"
           >
-            Edit<span className="sr-only">, {url.slug}</span>
+            View<span className="sr-only">, {url.slug}</span>
           </Link>
         </td>
       </tr>

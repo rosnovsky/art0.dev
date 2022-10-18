@@ -38,6 +38,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect("https://art0.dev/deactivated");
     }
     try {
+      console.count("redirect");
       await client.registerClick.mutate({
         slug,
         region: request.geo?.region || "Unknown",
