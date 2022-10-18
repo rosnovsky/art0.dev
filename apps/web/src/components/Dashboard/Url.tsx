@@ -7,7 +7,18 @@ import Toggle from "../elements/Toggle";
 
 export default function Url({ url }) {
   const [enabled, setEnabled] = useState<boolean>(url.status);
+  const [copied, setCopied] = useState<boolean>(false);
   const clicks = trpcReact.getClicks.useQuery(url.id);
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(url.shortUrl);
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }
+      , 1000);
+  };
+
 
   return (
     <tbody className="divide-y divide-gray-200 bg-white">
@@ -34,8 +45,8 @@ export default function Url({ url }) {
           </div>
         </td>
         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-          <div className="text-gray-500">
-            {url.shortUrl.slice(0, 35)}
+          <div className="text-gray-500 cursor-pointer">
+            <div onClick={handleCopy}>{copied ? "copied!" : url.shortUrl}</div>
           </div>
         </td>
         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">

@@ -14,6 +14,7 @@ export async function middleware(request: NextRequest) {
     url.pathname.startsWith("/api") ||
     url.pathname.startsWith("/shorts") ||
     url.pathname.startsWith("/_next") ||
+    url.pathname.startsWith("/deactivated") ||
     url.pathname === "/favicon.ico" ||
     url.pathname === "/"
   ) {
