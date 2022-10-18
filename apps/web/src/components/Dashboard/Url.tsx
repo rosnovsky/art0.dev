@@ -4,6 +4,7 @@ import { trpcReact } from '../../utils/trpc';
 import favicon from '../../../public/favicon.ico';
 
 import Toggle from "../elements/Toggle";
+import Link from 'next/link';
 
 export default function Url({ url }) {
   const [enabled, setEnabled] = useState<boolean>(url.status);
@@ -56,12 +57,12 @@ export default function Url({ url }) {
           {clicks.data}
         </td>
         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-          <a
-            href="#"
+          <Link
+            href={`/shorts/${url.slug}`}
             className="text-indigo-600 hover:text-indigo-900"
           >
             Edit<span className="sr-only">, {url.slug}</span>
-          </a>
+          </Link>
         </td>
       </tr>
     </tbody>
