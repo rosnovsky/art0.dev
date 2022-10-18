@@ -24,10 +24,10 @@ const NewUrl = ({ slug }: { slug: string }) => {
           <pre>art0.dev</pre>
         </h1>
         <p className="text-2xl text-gray-700">A URL Shortener</p>
-        <div className="pt-6 text-2xl text-blue-500 flex justify-center items-center w-full">
-          {data?.longUrl}
+        {data?.screenshot && <><div className="pt-6 text-2xl text-blue-500 flex justify-center items-center w-full">
+          {data.longUrl}
         </div>
-        <div><Image src={data?.screenshot || ""} width={600} height={400} alt="" /></div>
+          <div><Image src={data.screenshot} placeholder="blur" blurDataURL='data:image/png;base64,ACoq5miiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/Z' width={600} height={400} alt="" /></div></>}
       </main>
     </>
   );

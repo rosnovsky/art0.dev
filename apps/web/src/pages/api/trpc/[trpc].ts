@@ -89,12 +89,11 @@ export const appRouter = t.router({
     // validate input with Zod
     .input(z.object({ longUrl: z.string().url(), user: z.string() }))
     .mutation(async ({ input, ctx }) => {
-      const slug = crypto
+      const slugHash = crypto
         .createHash("sha256")
         .update(input.longUrl)
-        .digest("base64")
-        .replace(/[^a-zA-Z0-9]/g, "")
-        .substring(0, 6);
+        .digest("base64");
+      const slug = slugHash.replace(/[^a-zA-Z0-9]/g, "").substring(0, 6);
       const notUnique = await ctx.prisma.shorts.findFirst({
         where: { slug },
       });
