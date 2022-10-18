@@ -26,7 +26,7 @@ export const appRouter = t.router({
       });
     }),
   getAllClicks: t.procedure.query(async ({ ctx }) => {
-    return await ctx.prisma.click.count();
+    return await ctx.prisma.click.findMany();
   }),
   getClicks: t.procedure.input(z.string()).query(async ({ input, ctx }) => {
     return await ctx.prisma.click.count({
@@ -68,7 +68,7 @@ export const appRouter = t.router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const short = await ctx.prisma.shorts.findFirst({
+      const short = await ctx.prisma.shorts.findUnique({
         where: {
           slug: input.slug,
         },
@@ -76,6 +76,7 @@ export const appRouter = t.router({
       if (!short) {
         throw new Error("Short not found");
       }
+      console.count("registerClick");
       return await ctx.prisma.click.create({
         data: {
           country: input.country,

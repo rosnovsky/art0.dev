@@ -24,7 +24,7 @@ model Click {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   timestamp DateTime @default(now())
   country   String
-  region    String
+  region    String?
   city      String
   shortsId  String  @db.ObjectId
 }

@@ -17,31 +17,51 @@ type StatsType = {
 export const Stats = () => {
   const { user } = useUser()
 
-  const totalUrls = trpc.getAll.useQuery({ userId: user!.sub! }).data?.length || 0;
-  const totalClicks = trpc.getAllClicks.useQuery().data || 0;
-  const averageClicks = Math.floor((totalClicks || 0) / (totalUrls || 1)) || 0;
+  const allUrls = trpc.getAll.useQuery({ userId: user!.sub! })
+  const totalUrls = allUrls.data?.length || 0;
+  const urlsYesterday = allUrls.data?.filter((url) => new Date(url.createdAt) < new Date(new Date().setDate(new Date().getDate() - 1)))?.length || 0;
+
+  const allClicks = trpc.getAllClicks.useQuery()
+  const totalClicks = allClicks.data?.length || 0;
+
+  const clicksYesterday = allClicks.data?.filter((click: any) => {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    return new Date(click.timestamp).getDate() === yesterday.getDate();
+  }).length || 0;
+
+  const clicksToday = allClicks.data?.filter((click: any) => {
+    const date = new Date(click.createdAt);
+    const today = new Date();
+    return date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear();
+  }).length || 0;
+
+  const averageClicks = parseFloat(((totalClicks || 0) / (totalUrls || 1)).toPrecision(3));
+  const averageClicksYesterday = parseFloat(((clicksYesterday || 0) / (urlsYesterday || 1)).toPrecision(3));
 
   const stats: StatsType = [
     {
       name: "Total URLs",
       stat: totalUrls,
-      previousStat: 0,
-      change: "0",
-      changeType: "increase",
+      previousStat: urlsYesterday,
+      change: `${Math.floor(((totalUrls - urlsYesterday) / totalUrls) * 100)}%`,
+      changeType: totalUrls > urlsYesterday ? "increase" : "decrease",
     },
     {
       name: "Total Clicks",
       stat: totalClicks,
-      previousStat: 0,
-      change: "0",
-      changeType: "increase",
+      previousStat: clicksYesterday,
+      change: `${Math.floor(((totalClicks - clicksYesterday) / totalClicks) * 100)}%`,
+      changeType: totalClicks > clicksYesterday ? "increase" : "decrease",
     },
     {
       name: "Average Clicks",
       stat: averageClicks,
-      previousStat: 0,
-      change: "0",
-      changeType: "increase",
+      previousStat: averageClicksYesterday,
+      change: `${Math.floor(((averageClicks - averageClicksYesterday) / averageClicks) * 100)}%`,
+      changeType: averageClicks > averageClicksYesterday ? "increase" : "decrease",
     },
   ];
 
@@ -89,7 +109,7 @@ export const Stats = () => {
                         : "Decreased"}{" "}
                       by{" "}
                     </span>
-                    {(item.stat || 0 - item.previousStat) * 100}%
+                    {item.change}
                   </div>
                 </dd>
               </div>
