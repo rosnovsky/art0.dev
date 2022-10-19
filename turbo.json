@@ -21,7 +21,8 @@
       "dependsOn": [
         "prismadb#build"
       ]
-    }
+    },
+   "test": {}
   },
   "globalEnv": [
     "VERCEL_URL",
