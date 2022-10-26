@@ -1,6 +1,6 @@
 {
   "name": "art0.dev",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -21,7 +21,7 @@
     "@trpc/next": "10.0.0-proxy-beta.13",
     "@trpc/react": "10.0.0-proxy-beta.13",
     "@trpc/server": "10.0.0-proxy-beta.13",
-    "next": "12.3.1",
+    "next": "^13.0.0",
     "playwright": "^1.27.1",
     "prismadb": "*",
     "react": "18.2.0",
